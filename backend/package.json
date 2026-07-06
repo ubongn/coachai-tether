@@ -1,0 +1,22 @@
+{
+  "name": "@coachai/backend",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "CoachAI backend — Fastify HTTP API wiring REAL QVAC on-device AI + REAL WDK self-custody wallet.",
+  "license": "Apache-2.0",
+  "engines": { "node": ">=22" },
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "test": "node --test test/"
+  },
+  "dependencies": {
+    "@fastify/cors": "^10.0.1",
+    "@tetherto/wdk": "1.0.0-beta.13",
+    "@tetherto/wdk-wallet-evm": "*",
+    "@tetherto/wdk-wallet-tron": "*",
+    "fastify": "^5.1.0"
+  }
+}

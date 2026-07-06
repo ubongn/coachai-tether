@@ -1,0 +1,31 @@
+{
+  "name": "coachai-tether",
+  "version": "2.0.0",
+  "private": true,
+  "description": "CoachAI — on-device AI football coach (real QVAC) + self-custody tipping wallet (real WDK). Tether Developers Cup.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "fetch-model": "node scripts/fetch-model.mjs",
+    "smoke:qvac": "cd ../smoke && bare qvac-smoke.cjs",
+    "smoke:wdk": "cd ../smoke && node wdk-smoke.mjs",
+    "worker": "bare qvac-worker/worker.cjs",
+    "dev:backend": "npm --workspace backend run dev",
+    "dev:frontend": "npm --workspace frontend run dev",
+    "build": "npm --workspace frontend run build",
+    "test": "npm --workspace backend test",
+    "start": "npm --workspace backend start"
+  },
+  "dependencies": {
+    "@qvac/llm-llamacpp": "0.31.1",
+    "bare-process": "*",
+    "bare-stream": "*"
+  }
+}

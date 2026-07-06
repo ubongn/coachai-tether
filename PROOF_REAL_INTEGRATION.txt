@@ -1,0 +1,28 @@
+=== WDK REAL SMOKE === 
+[1] Generated REAL BIP-39 seed (valid: true ) — words: 12
+[2] REAL TRON Nile address derived from seed: TDw4sN5PAQsyC5B17zUnBoZUmTsvBmAwD1
+[3] WalletAccountTron methods: constructor, index, path, keyPair, sign, signTransaction, sendTransaction, _assertTransactionOwner, transfer, toReadOnlyAccount, dispose, _signTransaction
+[4] REAL on-chain balance query OK -> 0n
+    recipient (acct #1): TXifx7JYKmS46zLhgkixrDf79sSfiKfvA1
+[5] REAL tx quote (fee in sun): 1100000
+[6] Policy simulate decision: DENY | rule: cap-10-sun | reason: cap-10-sun
+
+✅ WDK REAL integration verified end-to-end.
+ 
+=== QVAC REAL SMOKE === 
+[QVAC] Instantiating qvac-fabric-llm.cpp engine on Bare runtime...
+[QVAC] Loading model into memory (CPU) ...
+parse: load the model metadata from disk file.
+initFromConfig: load the model from disk file and apply lora adapter, if any.
+common_init_result: fitting params to device memory, for bugs during this step try to reproduce them with -fit off, or provide --verbose logs if the bug only occurs with -fit on
+common_init_result: added <|end_of_text|> logit bias = -inf
+common_init_result: added <|eom_id|> logit bias = -inf
+common_init_result: added <|eot_id|> logit bias = -inf
+[QVAC] Model loaded in 1.9s
+[QVAC] Running REAL on-device inference ...
+--- MODEL OUTPUT ---
+
+--- END ---
+[QVAC] generated 65 streamed chunks in 3.33s (~19.5 tok/s)
+[QVAC] full text: I'd suggest switching to a 4-2-3-1 formation, which would significantly increase the pressure on the midfielders and create more space for the central defenders. This change would allow us to drop deep and win possession quickly, creating opportunities for our wingers to exploit the space behind the opposition's defense.
+[QVAC] ✅ REAL on-device inference verified.
