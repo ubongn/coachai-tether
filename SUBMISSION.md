@@ -18,7 +18,7 @@ Combines **QVAC** (on-device AI via Llama 3.2 1B) + **WDK** (self-custody wallet
 ## Links
 
 - **GitHub:** https://github.com/ubongn/coachai-tether
-- **Live demo:** https://coachai-ubong.vercel.app (static demo mode with recorded on-device samples)
+- **Live demo:** https://coachai-tether.vercel.app (static demo mode with recorded on-device samples)
 - **Proof of real integration:** `PROOF_REAL_INTEGRATION.txt` in repo root
 
 ## Demo Video

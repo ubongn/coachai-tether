@@ -4,7 +4,7 @@
 
 > Built for the **Tether Developers Cup 2026** — combining **QVAC** (on-device AI) + **WDK** (self-custody wallet) on a football / tournament theme.
 
-**Live Demo:** [coachai.vercel.app](https://coachai-ubong.vercel.app) *(static demo mode)*
+**Live Demo:** [coachai-tether.vercel.app](https://coachai-tether.vercel.app) *(static demo mode)*
 
 ---
 
@@ -103,7 +103,7 @@ Without a token, the app uses a bundled real-data snapshot (genuine teams, stand
 
 ## 🌐 Deployed demo (Vercel)
 
-The [live demo](https://coachai-ubong.vercel.app) runs in **demo mode** — a static PWA deploy where all AI responses are pre-recorded from a genuine on-device run (see `PROOF_REAL_INTEGRATION.txt`). This lets judges interact with the product without running the 770MB model locally.
+The [live demo](https://coachai-tether.vercel.app) runs in **demo mode** — a static PWA deploy where all AI responses are pre-recorded from a genuine on-device run (see `PROOF_REAL_INTEGRATION.txt`). This lets judges interact with the product without running the 770MB model locally.
 
 For the **real on-device experience**, clone and run locally (see Quickstart above).
 
