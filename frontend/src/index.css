@@ -113,3 +113,30 @@ button.ghost {
 .dot { width: 8px; height: 8px; border-radius: 999px; background: #1fe07a; }
 .dot.warn { background: var(--warning); }
 .dot.bad { background: var(--danger); }
+
+.status-row { display: flex; align-items: center; justify-content: space-between; }
+.status-left { display: flex; align-items: center; gap: 10px; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+@media (max-width: 640px) { .grid3 { grid-template-columns: 1fr; } }
+.row { display: flex; gap: 10px; align-items: stretch; }
+.grow { flex: 1; background: #0c1222; color: var(--text); border: 1px solid #1c2b4a; border-radius: 10px; padding: 10px 12px; font: inherit; outline: none; }
+.grow:focus { border-color: var(--accent2); }
+.sec-title { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+
+.kv { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 18px; }
+.kv-item { display: flex; justify-content: space-between; gap: 10px; padding: 6px 0; border-bottom: 1px dashed #1c2b4a; }
+.kv-k { font-size: 12px; color: #8ca5c7; }
+.kv-v { font-size: 13px; color: var(--text); text-align: right; }
+
+.ai-block { margin-top: 14px; }
+.ai-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+.ai-text { margin: 0; white-space: pre-wrap; line-height: 1.6; font-size: 14px; }
+.chip { font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 999px; background: rgba(0,229,135,0.14); color: var(--accent); border: 1px solid rgba(0,229,135,0.3); }
+.chip.dim { background: #121a2e; color: #9fb2d2; border-color: #1c2b4a; }
+.hashrow { display: flex; flex-direction: column; gap: 4px; margin-top: 10px; }
+.hashrow code { font-size: 11px; word-break: break-all; color: var(--accent2); background: #0a1020; padding: 6px 8px; border-radius: 8px; }
+.apirow { display: flex; gap: 8px; margin-top: 10px; }
+.apirow input { flex: 1; background: #0c1222; color: var(--text); border: 1px solid #1c2b4a; border-radius: 10px; padding: 8px 10px; font: inherit; outline: none; }
+.lnk { color: var(--accent2); }
+.muted { font-size: 12px; color: #8ca5c7; line-height: 1.5; margin: 10px 0 0; }
+.foot { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-top: 28px; padding-top: 16px; border-top: 1px solid #1c2b4a; font-size: 11px; color: #6f83a6; }

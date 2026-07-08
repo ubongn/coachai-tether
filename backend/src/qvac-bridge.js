@@ -16,11 +16,15 @@ export class QvacBridge {
     this._nextId = 1
     this.ready = false
     this.bootPromise = null
+    this.stopping = false
+    this._restartTimer = null
+    this._restartAttempts = 0
   }
 
   async start() {
     if (!QVAC_ENABLED) { this.disabled = true; return }
     if (!QVAC_SPAWN) { return } // externally managed
+    // If a worker is already alive & booting/booted, reuse it.
     if (this.bootPromise) return this.bootPromise
     this.bootPromise = this._spawn()
     return this.bootPromise
@@ -43,11 +47,15 @@ export class QvacBridge {
       console.error(`[qvac-bridge] worker exited (code=${code})`)
       this.ready = false
       this.bootPromise = null
+      this.proc = null
       // fail any in-flight requests
       for (const [id, { reject }] of this.pending) {
         reject(new Error(`qvac worker exited (code=${code})`))
       }
       this.pending.clear()
+      // Self-heal: the Bare worker occasionally sees a transient stdin EOF on
+      // Windows (shell-wrapped spawn pipe race). Restart it automatically.
+      if (!this.stopping) this._scheduleRestart()
     })
 
     this.proc.stdout.on('data', (chunk) => this._onData(chunk))
@@ -90,6 +98,8 @@ export class QvacBridge {
    */
   async complete(messages, timeoutMs = 60_000) {
     if (this.disabled) throw new Error('QVAC is disabled (QVAC_ENABLED=false)')
+    // Ensure the worker is up; if it died and is restarting, wait for boot.
+    if (!this.ready) await this.start()
     if (!this.ready) throw new Error('QVAC worker not ready')
     const id = this._nextId++
     return new Promise((resolve, reject) => {
@@ -114,9 +124,25 @@ export class QvacBridge {
   }
 
   async stop() {
+    this.stopping = true
+    if (this._restartTimer) clearTimeout(this._restartTimer)
     if (this.proc) {
       try { this.proc.stdin.end() } catch {}
       this.proc.kill()
     }
+  }
+
+  _scheduleRestart() {
+    if (this._restartTimer) return
+    this._restartAttempts++
+    const backoff = Math.min(1500 * this._restartAttempts, 8000)
+    console.error(`[qvac-bridge] scheduling worker restart in ${backoff}ms (attempt ${this._restartAttempts})`)
+    this._restartTimer = setTimeout(() => {
+      this._restartTimer = null
+      this.start().then(() => {
+        console.error('[qvac-bridge] worker restarted OK')
+        this._restartAttempts = 0
+      }).catch((e) => console.error('[qvac-bridge] restart failed:', e.message))
+    }, backoff)
   }
 }

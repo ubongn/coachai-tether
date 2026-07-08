@@ -7,7 +7,7 @@ const env = process.env
 function bool(k, d) { return env[k] !== undefined ? env[k] === 'true' || env[k] === '1' : d }
 function int(k, d) { const n = Number(env[k]); return Number.isFinite(n) ? n : d }
 
-export const PORT = int('PORT', 8787)
+export const PORT = int('PORT', 8000)
 export const HOST = env.HOST || '0.0.0.0'
 export const CORS_ORIGIN = env.CORS_ORIGIN || '*'
 

@@ -14,4 +14,12 @@ Thumbs.db
 *.log
 coverage/
 htmlcov/
-models/  
+models/
+.coachai/
+*.err
+*.out
+_debug*.mjs
+_debug*.log
+backend-run.log
+frontend-run.log
+frontend5180.log

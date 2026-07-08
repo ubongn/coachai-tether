@@ -101,7 +101,11 @@ export async function buildApp() {
 }
 
 // ---- run as a process ------------------------------------------------------
-if (import.meta.url === `file://${process.argv[1]}`) {
+import { pathToFileURL } from 'node:url'
+// Robust cross-platform "is main module" check (the naive `file://`+argv concat
+// fails on Windows due to path separators / drive letters).
+const isMain = import.meta.url === pathToFileURL(process.argv[1]).href
+if (isMain) {
   const { app, qvac } = await buildApp()
   try {
     await app.listen({ port: PORT, host: HOST })
