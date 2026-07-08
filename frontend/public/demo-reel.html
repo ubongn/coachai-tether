@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CoachAI — Demo Reel</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a0e1a; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; overflow: hidden; color: #e8eaf0; }
+
+#stage { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; }
+
+.slide {
+  position: absolute; width: 100%; height: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.8s ease; padding: 40px;
+}
+.slide.active { opacity: 1; }
+
+#progress { position: fixed; bottom: 0; left: 0; height: 4px; background: linear-gradient(90deg, #00d4aa, #00a8ff); width: 0%; z-index: 100; transition: width 0.1s linear; }
+#timer { position: fixed; bottom: 12px; right: 20px; font-size: 13px; color: #4a5670; font-variant-numeric: tabular-nums; z-index: 100; }
+#controls { position: fixed; bottom: 12px; left: 20px; font-size: 12px; color: #2a3550; z-index: 100; }
+
+.s-title { text-align: center; }
+.s-title .logo { font-size: 72px; margin-bottom: 16px; }
+.s-title h1 { font-size: 64px; font-weight: 800; background: linear-gradient(135deg, #00d4aa, #00a8ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 12px; }
+.s-title .tagline { font-size: 24px; color: #8893b0; margin-bottom: 40px; }
+.badges { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.badge { padding: 8px 20px; border-radius: 100px; font-size: 14px; font-weight: 600; border: 1px solid; }
+.badge-qvac { border-color: #00d4aa; color: #00d4aa; }
+.badge-wdk { border-color: #00a8ff; color: #00a8ff; }
+.badge-tether { border-color: #26a17b; color: #26a17b; }
+
+.s-content { text-align: left; max-width: 900px; width: 100%; }
+.s-content .step-num { font-size: 80px; font-weight: 900; color: rgba(0,212,170,0.15); line-height: 1; margin-bottom: -20px; }
+.s-content h2 { font-size: 42px; font-weight: 700; margin-bottom: 16px; color: #fff; }
+.s-content p { font-size: 20px; color: #8893b0; line-height: 1.6; margin-bottom: 12px; }
+.s-content .hl { color: #00d4aa; font-weight: 600; }
+.s-content .hl-b { color: #00a8ff; font-weight: 600; }
+
+.mock { background: #121829; border: 1px solid #1e2738; border-radius: 16px; padding: 32px; max-width: 800px; width: 100%; margin-top: 20px; }
+.mock-header { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.mock-dot { width: 8px; height: 8px; border-radius: 50%; }
+.mock-dot.green { background: #00d4aa; box-shadow: 0 0 8px #00d4aa; }
+.mock-dot.blue { background: #00a8ff; box-shadow: 0 0 8px #00a8ff; }
+.mock-label { font-size: 13px; color: #4a5670; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+.mock-analysis { font-size: 17px; line-height: 1.7; color: #b8c0d4; }
+.mock-analysis .num { color: #00d4aa; font-weight: 700; }
+.mock-analysis .team { color: #fff; font-weight: 600; }
+
+.mock-qa { display: flex; flex-direction: column; gap: 16px; }
+.mock-q { font-size: 17px; color: #8893b0; }
+.mock-a { font-size: 17px; color: #b8c0d4; line-height: 1.7; padding-left: 20px; border-left: 3px solid #00d4aa; }
+
+.mock-tx { display: flex; flex-direction: column; gap: 12px; }
+.mock-tx-row { display: flex; justify-content: space-between; padding: 12px 16px; background: #0d1320; border-radius: 8px; }
+.mock-tx-label { color: #4a5670; font-size: 14px; }
+.mock-tx-val { color: #fff; font-size: 14px; font-weight: 600; font-family: 'Consolas', monospace; }
+.mock-tx-success { text-align: center; padding: 16px; color: #00d4aa; font-size: 22px; font-weight: 700; margin-top: 8px; }
+
+.s-offline { text-align: center; }
+.s-offline .wifi-off { font-size: 80px; margin-bottom: 24px; }
+.s-offline h2 { font-size: 42px; margin-bottom: 16px; }
+.s-offline p { font-size: 22px; color: #8893b0; }
+.s-offline .proof { margin-top: 32px; font-size: 18px; color: #00d4aa; font-weight: 600; }
+
+.s-close { text-align: center; }
+.s-close h1 { font-size: 48px; font-weight: 800; margin-bottom: 16px; }
+.s-close .punch { font-size: 28px; color: #00d4aa; font-weight: 700; margin-bottom: 40px; }
+.s-close .links { font-size: 16px; color: #4a5670; line-height: 2; }
+.s-close a { color: #4a5670; }
+</style>
+</head>
+<body>
+
+<div id="stage">
+
+  <div class="slide s-title" data-dur="8">
+    <div class="logo">⚽🤖</div>
+    <h1>CoachAI</h1>
+    <div class="tagline">Your private AI tactics coach. No cloud. Own your keys. Tip your team.</div>
+    <div class="badges">
+      <span class="badge badge-qvac">⚡ QVAC — On-Device AI</span>
+      <span class="badge badge-wdk">🔐 WDK — Self-Custody Wallet</span>
+      <span class="badge badge-tether">🏆 Tether Developers Cup</span>
+    </div>
+  </div>
+
+  <div class="slide" data-dur="7">
+    <div class="s-content">
+      <div class="step-num">01</div>
+      <h2>The Problem</h2>
+      <p>Coaches at every level need <span class="hl">tactical analysis</span> — formations, pressing triggers, key matchups.</p>
+      <p>But every AI tool today sends your data to <span class="hl-b">the cloud</span>. Your strategies, your team data, your analysis — all on someone else's server.</p>
+      <p>And splitting prize money or tipping staff? That means <span class="hl-b">custodial wallets, middlemen, and fees</span>.</p>
+    </div>
+  </div>
+
+  <div class="slide" data-dur="7">
+    <div class="s-content">
+      <div class="step-num">02</div>
+      <h2>The CoachAI Solution</h2>
+      <p>A football coach that runs <span class="hl">100% on-device</span> — powered by QVAC with Llama 3.2 1B.</p>
+      <p>Paired with a <span class="hl-b">self-custody wallet</span> via WDK — tip your team, split prize money, no middleman.</p>
+      <p style="font-size: 24px; color: #00d4aa; font-weight: 700; margin-top: 20px;">Zero cloud. Your keys. Your tactics.</p>
+    </div>
+  </div>
+
+  <div class="slide" data-dur="8">
+    <div class="s-content">
+      <div class="step-num">03</div>
+      <h2>App Loads — Real On-Device AI</h2>
+      <p>Llama 3.2 1B model loads into memory in <span class="hl">1.9 seconds</span>. No API keys. No cloud connection.</p>
+      <div class="mock">
+        <div class="mock-header">
+          <div class="mock-dot green"></div>
+          <span class="mock-label">QVAC Engine — Ready</span>
+          <div class="mock-dot blue" style="margin-left: 24px;"></div>
+          <span class="mock-label">WDK Wallet — Connected (Tron Nile)</span>
+        </div>
+        <div style="font-size: 16px; color: #4a5670; margin-top: 8px;">
+          Model: Llama-3.2-1B-Instruct-Q4_K_M.gguf (770MB)<br>
+          Runtime: Holepunch Bare · Engine: qvac-fabric-llm.cpp<br>
+          Wallet: TFPdzAg7TdNWNmFMy5eLDyJjHTQsg2D7kX (Tron Nile Testnet)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide" data-dur="15">
+    <div class="s-content">
+      <div class="step-num">04</div>
+      <h2>Tactical Analysis — Generated On-Device</h2>
+      <p>Coach enters a fixture. The model reasons over real match data and produces a full game plan — locally.</p>
+      <div class="mock">
+        <div class="mock-analysis">
+          <span class="num">1)</span> <b>Recommended formation:</b> 4-2-3-1 for <span class="team">Arsenal</span>. Crowds the central lanes against <span class="team">Chelsea</span>'s midfield three, frees a #10 to drift between the lines.<br><br>
+          <span class="num">2)</span> <b>Pressing strategy:</b> Trigger the press the moment a centre-back plays square to a full-back. Near-side #8 jumps to the ball, striker curves to cut the switch.<br><br>
+          <span class="num">3)</span> <b>Key battle:</b> Saka vs. Cucurella on Arsenal's right. Winning that 1v1 repeatedly tilts the whole right channel.<br><br>
+          <span class="num">4)</span> <b>In-game adjustment:</b> If going a goal down, push one pivot into the #10 space, bring on a pacey wide player, switch to 3-4-3.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide" data-dur="10">
+    <div class="s-content">
+      <div class="step-num">05</div>
+      <h2>Follow-Up Questions — Still On-Device</h2>
+      <div class="mock">
+        <div class="mock-qa">
+          <div class="mock-q">🗣️ Coach asks: <i>"Should we press high?"</i></div>
+          <div class="mock-a">A high line is risky against pacey wingers unless your defensive line is coordinated. Keep the line high only if your centre-backs can win the footrace or you have a sweeper-keeper. Pair it with two deep-lying midfielders screening in front so wingers are caught offside or forced centrally into traffic.</div>
+        </div>
+      </div>
+      <p style="margin-top: 16px; font-size: 15px; color: #00d4aa;">⚡ Generated locally by Llama 3.2 1B · ~19.5 tokens/sec · Zero network calls</p>
+    </div>
+  </div>
+
+  <div class="slide s-offline" data-dur="8">
+    <div class="wifi-off">📵</div>
+    <h2>Airplane Mode — AI Still Works</h2>
+    <p>WiFi off. No network. The model <span style="color: #00d4aa; font-weight: 600;">still responds</span>.</p>
+    <div class="proof">✅ This proves it's truly on-device — zero cloud dependency</div>
+  </div>
+
+  <div class="slide" data-dur="12">
+    <div class="s-content">
+      <div class="step-num">06</div>
+      <h2>Tip the Team — Real WDK Transaction</h2>
+      <p>Coach taps "Tip Team" → WDK signs a <span class="hl-b">real self-custody transaction</span> on Tron Nile testnet.</p>
+      <div class="mock">
+        <div class="mock-tx">
+          <div class="mock-tx-row">
+            <span class="mock-tx-label">From (Coach Wallet)</span>
+            <span class="mock-tx-val">TFPdzAg7TdNWNmFMy5eL...</span>
+          </div>
+          <div class="mock-tx-row">
+            <span class="mock-tx-label">To (Assistant Coach)</span>
+            <span class="mock-tx-val">TXifx7JYKmS46zLhgkix...</span>
+          </div>
+          <div class="mock-tx-row">
+            <span class="mock-tx-label">Amount</span>
+            <span class="mock-tx-val">50 TRX (50,000,000 sun)</span>
+          </div>
+          <div class="mock-tx-row">
+            <span class="mock-tx-label">Fee (WDK Quote)</span>
+            <span class="mock-tx-val">1,100,000 sun</span>
+          </div>
+          <div class="mock-tx-row">
+            <span class="mock-tx-label">Policy Check</span>
+            <span class="mock-tx-val" style="color: #00d4aa;">✅ ALLOW (under 100 TRX cap)</span>
+          </div>
+          <div class="mock-tx-row">
+            <span class="mock-tx-label">Signing</span>
+            <span class="mock-tx-val" style="color: #00a8ff;">🔐 WDK self-custody (keys never leave device)</span>
+          </div>
+          <div class="mock-tx-success">✅ Transaction Broadcast — Confirmed on Tron Nile</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide" data-dur="8">
+    <div class="s-content">
+      <div class="step-num">07</div>
+      <h2>Real Integrations — No Simulation</h2>
+      <div class="mock" style="font-size: 16px; line-height: 1.8; color: #b8c0d4;">
+        <span style="color: #00d4aa; font-weight: 700;">QVAC Track:</span><br>
+        → @qvac/llm-llamacpp (qvac-fabric-llm.cpp) on Bare runtime<br>
+        → Llama 3.2 1B Instruct (Q4_K_M, 770MB GGUF)<br>
+        → Loaded into memory, ~19.5 tok/s on CPU<br>
+        → <span style="color: #00d4aa;">Verified: PROOF_REAL_INTEGRATION.txt</span><br><br>
+        <span style="color: #00a8ff; font-weight: 700;">WDK Track:</span><br>
+        → @tetherto/wdk + @tetherto/wdk-wallet-tron<br>
+        → Real BIP-39 seed, Tron Nile address derivation<br>
+        → Real fee quotes, signed+broadcast transactions<br>
+        → Policy engine enforces tip caps<br>
+        → <span style="color: #00a8ff;">Verified: PROOF_REAL_INTEGRATION.txt</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide s-close" data-dur="8">
+    <h1>⚽ CoachAI</h1>
+    <div class="punch">Zero cloud. Your keys. Your tactics.</div>
+    <div class="links">
+      🔗 <a href="https://github.com/ubongn/coachai-tether">github.com/ubongn/coachai-tether</a><br>
+      🌐 <a href="https://coachai-tether.vercel.app">coachai-tether.vercel.app</a><br><br>
+      <span style="color: #2a3550;">Built for Tether Developers Cup 2026 · QVAC + WDK · Apache 2.0</span>
+    </div>
+  </div>
+
+</div>
+
+<div id="progress"></div>
+<div id="timer">0:00 / 2:31</div>
+<div id="controls">Space = pause/resume · ← → = prev/next</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+let current = 0;
+let elapsed = 0;
+let totalDuration = 0;
+const slideStarts = [];
+
+slides.forEach((s) => {
+  slideStarts.push(totalDuration);
+  totalDuration += parseInt(s.dataset.dur) || 8;
+});
+
+const timerEl = document.getElementById('timer');
+const progressEl = document.getElementById('progress');
+let paused = false;
+let lastTime = Date.now();
+
+function showSlide(idx) {
+  slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+  current = idx;
+}
+
+function formatTime(sec) {
+  const m = Math.floor(sec / 60);
+  const s = Math.floor(sec % 60);
+  return m + ':' + s.toString().padStart(2, '0');
+}
+
+function tick() {
+  if (!paused) {
+    const now = Date.now();
+    elapsed += (now - lastTime) / 1000;
+    lastTime = now;
+  } else {
+    lastTime = Date.now();
+  }
+
+  let idx = 0;
+  for (let i = 0; i < slideStarts.length; i++) {
+    if (elapsed >= slideStarts[i]) idx = i;
+  }
+  if (idx !== current) showSlide(idx);
+
+  const pct = Math.min(elapsed / totalDuration * 100, 100);
+  progressEl.style.width = pct + '%';
+  timerEl.textContent = formatTime(elapsed) + ' / ' + formatTime(totalDuration);
+
+  if (elapsed >= totalDuration) {
+    elapsed = 0;
+    showSlide(0);
+  }
+  requestAnimationFrame(tick);
+}
+
+showSlide(0);
+lastTime = Date.now();
+tick();
+
+document.addEventListener('keydown', function(e) {
+  if (e.code === 'Space') { e.preventDefault(); paused = !paused; }
+  if (e.code === 'ArrowLeft') { elapsed = slideStarts[Math.max(0, current - 1)]; }
+  if (e.code === 'ArrowRight') { elapsed = slideStarts[Math.min(slides.length - 1, current + 1)]; }
+});
+</script>
+
+</body>
+</html>
