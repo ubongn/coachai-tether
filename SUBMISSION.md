@@ -23,7 +23,7 @@ Combines **QVAC** (on-device AI via Llama 3.2 1B) + **WDK** (self-custody wallet
 
 ## Demo Video
 
-*(link to be added — 3 min screen recording of local run with real on-device AI + real WDK transaction)*
+https://youtu.be/IKV3_UEVsJo
 
 ## Tech Stack
 

@@ -5,6 +5,7 @@
 > Built for the **Tether Developers Cup 2026** — combining **QVAC** (on-device AI) + **WDK** (self-custody wallet) on a football / tournament theme.
 
 **Live Demo:** [coachai-tether.vercel.app](https://coachai-tether.vercel.app) *(static demo mode)*
+**Demo Video:** [youtu.be/IKV3_UEVsJo](https://youtu.be/IKV3_UEVsJo)
 
 ---
 
